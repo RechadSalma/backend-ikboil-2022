@@ -2,16 +2,16 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 
+require("dotenv").config();
+
 const app = express();
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 
-//whtielist
-const corsOptions = {
-  origin: "http://localhost:9000",
-  // optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
-app.use(cors(corsOptions));
+/**url cors settings */
+// * You will need to setup .env file for localhost env variables (dotenv) before you can use the server
+const { corsOptionsDelegate } = require("./helpers/cors.js");
+app.use(cors(corsOptionsDelegate));
 
 //routes
 app.get("/", (req, res) => {
